@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>axigear-360-viewer</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </head>
+  <body>
+        <div id="main" class="wrapper">
+            <section class="header bg-dark pt-4 pb-4">
+                <div class="container">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-md-6 d-flex justify-content-center justify-content-md-start align-items-center">
+                            <a href="https://axigear.ru/" class="logo" style="width:60%">
+                                <img style="width:100%;" src="./img/playerlogo.png">
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 mt-4 mt-md-0 d-flex justify-content-center justify-content-md-end">
+                            <div class="d-flex justify-content-center align-items-center  flex-column ">
+                                <a class="libLink pb-2" href="https://github.com/axigear/axigear-360-viewer/">Проект на GitHub</a>
+                                <div >
+                                    <a class="github-button" href="https://github.com/axigear/axigear-360-viewer/subscription" data-icon="octicon-eye"
+                                      aria-label="Watch axigear/axigear-360-viewer on GitHub">Watch</a>
+                                    <a class="github-button" href="https://github.com/axigear/axigear-360-viewer" data-icon="octicon-star"
+                                      aria-label="Star axigear/axigear-360-viewer on GitHub">Star</a>
+                                    <a class="github-button" href="https://github.com/axigear/axigear-360-viewer/fork" data-icon="octicon-repo-forked"
+                                      aria-label="Fork axigear/axigear-360-viewer on GitHub">Fork</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="examples container">
+                <div class="text-center">
+                  <h2 class="text-center mt-4 mb-4">Во всех подробностях и с любого ракурса</h2>
+                  <p>Простая в использовании JavaScript библиотека от компании <a href="https://axigear.ru/">Axigear</a>, которая поможет разместить фото в формате 360° на вашем сайте.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div style="max-width: 1000px;">
+                          <div class="text-center">
+                            <div class="axigear-360" 
+                              data-folder="./img/boot/" 
+                              data-filename="IMG_{index}.jpg"
+                              data-index-zero-base="2"
+                              data-amount="36" 
+                              rotate-icon 
+                              data-magnifier="3" 
+                              full-screen 
+                              play-icon
+                            ></div>
+                            <p>36 кадров, загрузка после нажатия на кнопку, все элементы управления включены</p>
+                          </div>
+                          
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                          <div class="axigear-360" 
+                          data-folder="./img/motor/" 
+                          data-filename="IMG_{index}.jpg"
+                            data-index-zero-base="2" 
+                            data-amount="36" 
+                            auto-loading
+                            auto-play
+                          ></div>
+                          <p>36 кадров, автозагрузка, автовоспроизведение, элементы управления отключены</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        
+                    </div>
+                </div>     
+            </section>
+            
+            <section class="code-examples">
+              <div class="text-center">
+                <h2 class="text-center pt-4 pb-4">Как использовать?</h2>
+              </div>
+              <div class="container">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>
+                      Подготовка
+                    </h4>
+                  </div>
+                  <div class="card-body ">
+                    <p>Скачайте файл библиотеки в нашем репозитории GitHub. Разместите файл в каталоге сайта и подключите его к вашему проекту, вставив код перед закрывающим тегом
+                      &lt/body&gt, указав корректный путь</p>
+                    <figure class="highlight">
+                      <pre><code class="html">&lt;script src="./path/to/your/script/file/axigear-360-viewer.min.js"&gt;&lt;&frasl;script&gt;</code></pre>
+                    </figure>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <h4>
+                      Немного кода
+                    </h4>
+                  </div>
+                  <div class="card-body ">
+                    <p>
+                      Добавьте компонент с классом class="axigear-360", укажите путь к изображениям, шаблон имени файлов и количество
+                      изображений
+                    </p>
+                    <figure class="highlight">
+                      <pre><code class="html">&lt;div&gt;
+  class="axigear-360"
+  data-folder="./img/boot/"
+  data-filename="IMG_{index}.jpg"
+  data-amount="36"
+&gt;&lt;&frasl;div&gt;</code></pre>
+                    </figure>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <h4>
+                      Готово к использованию!
+                    </h4>
+                  </div>
+                  <div class="card-body text-center">
+                    <p class="card-text">
+                      Библиотека обладает широким функционалом и возможностями кастомизации. Хотите узнать больше?
+                    </p>
+                    <a href="https://github.com/axigear/axigear-360-viewer/wiki" class="btn btn-primary">Переходите на Wiki проекта</a>
+                  </div>
+                </div>
+
+                <h2 class="text-center mb-4">Есть вопросы?</h2>
+                <p class="text-center pb-4">Присылайте ваши вопросы на <a href="https://github.com/axigear/axigear-360-viewer/issues">страницу проекта в GitHub</a> </p>
+
+                </div>
+              </div>
+            </section>
+
+            <section class="footer bg-dark text-light text-center pt-4 pb-4">
+                  <p class="mb-0">Проект организован в 2020 году компанией Axigear ©</p>
+            </section>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="bundlead0a3d6565068d4d1e30.js"></script></body>
+</html>

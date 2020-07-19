@@ -644,7 +644,7 @@ class AXIGEAR360Viewer {
     }
 
     this.addImage(this.srcList[0], 0);
-    console.log(this.srcList);
+    //console.log(this.srcList);
 
     if (this.fullScreenView) this.loadImages();
 

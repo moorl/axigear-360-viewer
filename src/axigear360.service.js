@@ -840,7 +840,7 @@ class AXIGEAR360Viewer {
     this.imageList = JSON.parse(imageList);
     this.srcList = new Array();
     this.indexZeroBase = indexZeroBase;
-    this.amount = amount;
+    this.amount = this.imageList ? this.imageList.length : amount;
     this.boxShadow = boxShadow;
     this.autoplay = autoplay;
     this.speed = speed;
@@ -879,7 +879,7 @@ class AXIGEAR360Viewer {
       src = this.getSrc(container, folder, '{filename}');
     }
 
-    this.preloadImage(amount, src, container);
+    this.preloadImage(this.amount, src, container);
     
     this.attachEvents(draggable, swipeable, keys);
   }

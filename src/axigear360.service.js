@@ -610,18 +610,41 @@ class AXIGEAR360Viewer {
 
   getSrc(container, folder, filename) {
     let src = `${folder}${filename}`;
+
+    if (this.responsive) {
+      const thumbnailSettings = JSON.parse(this.responsive);
+
+      let size = thumbnailSettings[0].s;
+      let imageOffsetWidth = container.offsetWidth === 0 ? window.innerWidth : container.offsetWidth;
+
+      for (let item in thumbnailSettings) {
+        if (imageOffsetWidth > thumbnailSettings[item].w) {
+          size = thumbnailSettings[item].s;
+        }
+      }
+
+      src = `${folder}thumbnails/${size}/${filename}`;
+    }
+
     return src;
   }
 
   preloadImage(amount, src) {
-    [...new Array(amount)].map((_item, index) => {
-      const nextZeroFilledIndex = pad(index + 1, this.indexZeroBase);
-      const resultSrc = src.replace('{index}', nextZeroFilledIndex);
-      this.srcList.push(resultSrc);
-    });
+    if (!this.imageList) {
+      [...new Array(amount)].map((_item, index) => {
+        const nextZeroFilledIndex = pad(index + 1, this.indexZeroBase);
+        const resultSrc = src.replace('{index}', nextZeroFilledIndex);
+        this.srcList.push(resultSrc);
+      });
+    } else {
+      for (let index in this.imageList) {
+        const resultSrc = src.replace('{filename}', this.imageList[index]);
+        this.srcList.push(resultSrc);
+      }
+    }
 
     this.addImage(this.srcList[0], 0);
-    //console.log(this.srcList);
+    console.log(this.srcList);
 
     if (this.fullScreenView) this.loadImages();
 
@@ -777,7 +800,8 @@ class AXIGEAR360Viewer {
   init(container) {
     let {
       folder, 
-      filename, 
+      filename,
+      imageList,
       indexZeroBase, 
       amount, 
       draggable = true, 
@@ -803,7 +827,8 @@ class AXIGEAR360Viewer {
       closeFullScreenIconUrl,
       rotateIconUrl,
       image360IconUrl,
-      image360IconBackgroundColor
+      image360IconBackgroundColor,
+      responsive
     } = get360ViewProps(container);
     
 
@@ -812,6 +837,7 @@ class AXIGEAR360Viewer {
 
     this.folder = folder;
     this.filename = filename;
+    this.imageList = JSON.parse(imageList);
     this.srcList = new Array();
     this.indexZeroBase = indexZeroBase;
     this.amount = amount;
@@ -840,11 +866,18 @@ class AXIGEAR360Viewer {
     this.image360IconUrl = image360IconUrl;
     this.image360IconBackgroundColor = image360IconBackgroundColor;
 
+    this.responsive = responsive;
+
     this.applyStylesToContainer();
 
     this.addCanvas();
 
-    let src = this.getSrc(container, folder, filename);
+    let src = null;
+    if (!this.imageList) {
+      src = this.getSrc(container, folder, filename);
+    } else {
+      src = this.getSrc(container, folder, '{filename}');
+    }
 
     this.preloadImage(amount, src, container);
     

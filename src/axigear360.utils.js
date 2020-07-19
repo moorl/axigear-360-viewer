@@ -1,6 +1,7 @@
 const get360ViewProps = (image) => ({
   folder: attr(image, 'folder') || attr(image, 'data-folder') || '/',
   filename: attr(image, 'filename') || attr(image, 'data-filename') || 'image-{index}.jpg',
+  imageList: attr(image, 'image-list') || attr(image, 'data-image-list') || null,
   indexZeroBase: parseInt(attr(image, 'index-zero-base') || attr(image, 'data-index-zero-base') || 0, 10),
   amount: parseInt(attr(image, 'amount') || attr(image, 'data-amount') || 36, 10),
   speed: parseInt(attr(image, 'speed') || attr(image, 'data-speed') || 80, 10),
@@ -26,6 +27,7 @@ const get360ViewProps = (image) => ({
   rotateIconUrl: attr(image, 'rotate-icon-url'),
   image360IconUrl: attr(image, 'image-360-icon-url'),
   image360IconBackgroundColor: attr(image, 'image-360-icon-background-color'),
+  responsive: attr(image, 'responsive') || attr(image, 'data-responsive') || null
 });
 
 const isTrue = (image, type) => {

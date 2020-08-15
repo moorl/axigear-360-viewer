@@ -281,8 +281,8 @@ class AXIGEAR360Viewer {
     this.update();
   }
 
-  update() {
-    const image = this.images[this.activeImage - 1];
+  update(event) {
+    const image = (typeof event !== 'undefined' ? event.target : this.images[this.activeImage - 1]);
     const ctx = this.canvas.getContext("2d");
 
     ctx.scale(this.devicePixelRatio, this.devicePixelRatio);
@@ -298,14 +298,35 @@ class AXIGEAR360Viewer {
 
       ctx.drawImage(image, offsetX, offsetY, width, height);
     } else {
-      this.canvas.width = this.container.offsetWidth * this.devicePixelRatio;
-      this.canvas.style.width = this.container.offsetWidth + 'px';
-      this.canvas.height = this.container.offsetWidth * this.devicePixelRatio / image.width * image.height;
-      this.canvas.style.height = this.container.offsetWidth / image.width * image.height + 'px';
+      console.log(this.displayMode);
 
-      ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+      switch (this.displayMode) {
+        case 'contain':
+          this.canvas.width = this.container.offsetWidth;
+          this.canvas.style.width = this.container.offsetWidth + 'px';
+          this.canvas.height = this.container.offsetHeight;
+          this.canvas.style.height = this.container.offsetHeight + 'px';
+
+          ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+          break;
+        case 'cover':
+          this.canvas.width = 430;
+          this.canvas.style.width = '430px';
+          this.canvas.height = 430;
+          this.canvas.style.height = '430px';
+
+          ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+          break;
+        default:
+          this.canvas.width = this.container.offsetWidth * this.devicePixelRatio;
+          this.canvas.style.width = this.container.offsetWidth + 'px';
+          this.canvas.height = this.container.offsetWidth * this.devicePixelRatio / image.width * image.height;
+          this.canvas.style.height = this.container.offsetWidth / image.width * image.height + 'px';
+
+          ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+          break;
+      }
     }
-
 
     //update container height
     this.container.style.height = this.canvas.style.height;
@@ -371,8 +392,11 @@ class AXIGEAR360Viewer {
   }
 
   onFirstImageLoaded(event) {
-    
-    if (this.fullScreenView) {
+
+    this.update(event);
+
+
+    /*if (this.fullScreenView) {
       this.canvas.width = window.innerWidth * this.devicePixelRatio;
       this.canvas.style.width = window.innerWidth + 'px';
       this.canvas.height = window.innerHeight * this.devicePixelRatio;
@@ -385,12 +409,46 @@ class AXIGEAR360Viewer {
 
       ctx.drawImage(event.target, offsetX, offsetY, width, height);
     } else {
+
+      console.log(this.displayMode);
+
+      switch (this.displayMode) {
+        case 'contain':
+          this.canvas.width = this.container.offsetWidth;
+          this.canvas.style.width = this.container.offsetWidth + 'px';
+          this.canvas.height = this.container.offsetHeight;
+          this.canvas.style.height = this.container.offsetHeight + 'px';
+
+          ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+          break;
+        case 'cover':
+          this.canvas.width = 430;
+          this.canvas.style.width = '430px';
+          this.canvas.height = 430;
+          this.canvas.style.height = '430px';
+
+          ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+          break;
+        default:
+          this.canvas.width = this.container.offsetWidth * this.devicePixelRatio;
+          this.canvas.style.width = this.container.offsetWidth + 'px';
+          this.canvas.height = this.container.offsetWidth * this.devicePixelRatio / image.width * image.height;
+          this.canvas.style.height = this.container.offsetWidth / image.width * image.height + 'px';
+
+          ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+          break;
+      }
+
+
+
+
+
       this.canvas.width = this.container.offsetWidth * this.devicePixelRatio;
       this.canvas.style.width = this.container.offsetWidth + 'px';
       this.canvas.height = this.container.offsetWidth * this.devicePixelRatio / event.target.width * event.target.height;
       this.canvas.style.height = this.container.offsetWidth / event.target.width * event.target.height + 'px';
 
-      const ctx = this.canvas.getContext("2d");
+
 
       ctx.drawImage(event.target, 0, 0, this.canvas.width, this.canvas.height);
 
@@ -400,6 +458,8 @@ class AXIGEAR360Viewer {
     //CONTAINER height
     this.update();
     //this.container.style.height = this.canvas.style.height;
+
+     */
 
     if (this.ratio) {
       this.container.style.minHeight = 'auto';
@@ -786,7 +846,7 @@ class AXIGEAR360Viewer {
       document.addEventListener('keydown', this.keydownGeneral.bind(this));
     }
 
-    window.addEventListener("resize", this.onWindowResize.bind(this));   
+    window.addEventListener("resize", this.onWindowResize.bind(this));
   }
 
   applyStylesToContainer() {
@@ -828,7 +888,8 @@ class AXIGEAR360Viewer {
       rotateIconUrl,
       image360IconUrl,
       image360IconBackgroundColor,
-      responsive
+      responsive,
+      displayMode
     } = get360ViewProps(container);
     
 
@@ -839,6 +900,7 @@ class AXIGEAR360Viewer {
     this.filename = filename;
     this.imageList = JSON.parse(imageList);
     this.srcList = new Array();
+    this.displayMode = displayMode;
     this.indexZeroBase = indexZeroBase;
     this.amount = this.imageList ? this.imageList.length : amount;
     this.boxShadow = boxShadow;

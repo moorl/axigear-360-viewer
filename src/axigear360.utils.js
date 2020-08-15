@@ -27,7 +27,8 @@ const get360ViewProps = (image) => ({
   rotateIconUrl: attr(image, 'rotate-icon-url'),
   image360IconUrl: attr(image, 'image-360-icon-url'),
   image360IconBackgroundColor: attr(image, 'image-360-icon-background-color'),
-  responsive: attr(image, 'responsive') || attr(image, 'data-responsive') || null
+  responsive: attr(image, 'responsive') || attr(image, 'data-responsive') || null,
+  displayMode: attr(image, 'data-display-mode')
 });
 
 const isTrue = (image, type) => {
